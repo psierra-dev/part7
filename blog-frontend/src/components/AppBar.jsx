@@ -17,11 +17,14 @@ import {
   Link as MuiLink,
   Button,
 } from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const HeaderPhone = () => {
   const matches = useMediaQuery("(min-width:600px)");
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const user = useSelector((state) => state.user);
 
   const toggleDrawer = (state) => {
     setOpen(state);
@@ -145,7 +148,18 @@ const HeaderPhone = () => {
           </ListItem>
           <ListItem>
             <ListItemText
-              primary={<Button sx={{color: "red"}}>Cerrar sesion</Button>}
+              primary={
+                user ? (
+                  <Button sx={{color: "red"}}>Cerrar sesion</Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    onClick={() => navigate("/login")}
+                  >
+                    Login
+                  </Button>
+                )
+              }
               secondary={null}
             />
           </ListItem>
