@@ -1,15 +1,6 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import {Avatar, Box, Card, CardContent, Typography} from "@mui/material";
 import {grey} from "@mui/material/colors";
 import {Link} from "react-router-dom";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const CardPreviewBlog = ({id, title, username}) => {
   return (
@@ -30,14 +21,6 @@ const CardPreviewBlog = ({id, title, username}) => {
           </Typography>
         </CardContent>
       </Link>
-      {/* <CardActions>
-        <Box display="flex" alignItems="center">
-          <IconButton aria-label="add to favorites">
-            <FavoriteBorderIcon />
-          </IconButton>
-          {blog.likes}
-        </Box>
-      </CardActions>*/}
     </Card>
   );
 };

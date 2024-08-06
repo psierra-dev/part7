@@ -16,10 +16,8 @@ import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined
 const Header = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  console.log(user, "--user");
-  const matches = useMediaQuery("(min-width:600px)");
 
-  console.log(matches, "matches");
+  const matches = useMediaQuery("(min-width:600px)");
 
   return (
     <Box

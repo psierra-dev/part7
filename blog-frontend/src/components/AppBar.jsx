@@ -24,10 +24,15 @@ const HeaderPhone = () => {
   const matches = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
 
   const toggleDrawer = (state) => {
     setOpen(state);
+  };
+
+  const logout = () => {
+    window.localStorage.clear("token-blog");
+    window.location.reload();
   };
   return (
     <Box sx={{display: !matches ? "block" : "none"}}>
@@ -150,7 +155,9 @@ const HeaderPhone = () => {
             <ListItemText
               primary={
                 user ? (
-                  <Button sx={{color: "red"}}>Cerrar sesion</Button>
+                  <Button sx={{color: "red"}} onClick={logout}>
+                    Cerrar sesion
+                  </Button>
                 ) : (
                   <Button
                     variant="contained"

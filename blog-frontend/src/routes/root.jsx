@@ -1,12 +1,11 @@
 import Header from "../components/Header";
-import {Outlet, useNavigation} from "react-router-dom";
-import {Box, Container} from "@mui/material";
+import {Outlet} from "react-router-dom";
+import {Alert, Box, Container} from "@mui/material";
 import HeaderPhone from "../components/AppBar";
+import {useSelector} from "react-redux";
 
 const Root = () => {
-  const navigation = useNavigation();
-
-  console.log(navigation.state, "--state-navigation");
+  const notification = useSelector((state) => state.notification);
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
@@ -19,6 +18,14 @@ const Root = () => {
       >
         <Outlet />
       </Container>
+      {notification.content && (
+        <Alert
+          severity={notification.type}
+          sx={{maxWidth: "400px", position: "fixed", bottom: 0, width: "100%"}}
+        >
+          {notification.content}
+        </Alert>
+      )}
       <footer></footer>
     </Box>
   );

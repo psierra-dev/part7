@@ -10,7 +10,6 @@ export async function loader({params}) {
 
 const UserDetailPage = () => {
   const {user} = useLoaderData();
-  console.log(user, "-user");
 
   return (
     <Box display="flex" flexDirection="column" gap="1rem">

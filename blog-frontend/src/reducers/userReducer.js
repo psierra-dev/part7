@@ -13,13 +13,13 @@ const userSlice = createSlice({
     setUser(state, action) {
       return {...state, user: action.payload};
     },
-    isLoading(state, action) {
+    isLoading(state) {
       return {...state, isLoading: true};
     },
-    isSuccess(state, action) {
+    isSuccess(state) {
       return {...state, isError: false, isLoading: false, isSuccess: true};
     },
-    isError(state, action) {
+    isError(state) {
       return {...state, isError: true, isLoading: false};
     },
   },

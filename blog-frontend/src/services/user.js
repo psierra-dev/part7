@@ -8,7 +8,6 @@ const setToken = (newToken) => {
 };
 
 const currentUser = async () => {
-  console.log(token, "token");
   if (!token) return;
   const config = {
     headers: {Authorization: token},

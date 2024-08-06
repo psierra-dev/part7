@@ -1,7 +1,7 @@
 import {Box, Button, TextField, Typography} from "@mui/material";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {addUser, setUser} from "../reducers/userReducer";
+import {setUser} from "../reducers/userReducer";
 import authService from "../services/auth";
 import blogService from "../services/blogs";
 import userService from "../services/user";

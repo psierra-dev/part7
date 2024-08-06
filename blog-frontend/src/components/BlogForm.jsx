@@ -1,8 +1,8 @@
-import {Box, Button, TextField} from "@mui/material";
+import {Box, Button, TextField, Typography} from "@mui/material";
 
 import {useState} from "react";
 import blogService from "../services/blogs";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addBlog} from "../reducers/blogReducer";
 import {useNavigate} from "react-router-dom";
 
@@ -14,6 +14,7 @@ const BlogForm = () => {
     author: "",
     url: "",
   });
+  const user = useSelector((state) => state.user.user);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -83,9 +84,15 @@ const BlogForm = () => {
         }
       />
 
-      <Button type="submit" variant="contained">
+      <Button disabled={!user} type="submit" variant="contained">
         Create
       </Button>
+
+      {!user && (
+        <Typography sx={{textAlign: "center", color: "red"}}>
+          Inicie sesión para crear un blog
+        </Typography>
+      )}
     </Box>
   );
 };

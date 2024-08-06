@@ -1,4 +1,6 @@
 import {useState} from "react";
+import {Link, useLoaderData} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {
   Avatar,
   Box,
@@ -12,12 +14,14 @@ import {
   Typography,
 } from "@mui/material";
 import blogService from "../services/blogs";
-import {Link, useLoaderData} from "react-router-dom";
-import {useSelector} from "react-redux";
 import {grey, red} from "@mui/material/colors";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from "@mui/icons-material/Comment";
+import {
+  clearNotification,
+  setNotification,
+} from "../reducers/notificationReducer";
 
 export async function loader({params}) {
   const blog = await blogService.getOne(params.blogId);
@@ -25,18 +29,24 @@ export async function loader({params}) {
 }
 const BlogDetailPage = () => {
   const data = useLoaderData();
+  const dispatch = useDispatch();
   const [comments, setComments] = useState(data.blog.comments);
   const [blog, setBlog] = useState(data.blog);
 
   const user = useSelector((state) => state.user.user);
 
-  const isLike = blog.likes.some((like) => like === user.id);
-  console.log(isLike, "--isLike");
+  const isLike = user ? blog.likes.some((like) => like === user.id) : false;
 
   const addComment = async (event) => {
     event.preventDefault();
-    console.log(event.target.comment.value, "--value");
+    if (!user) {
+      dispatch(
+        setNotification({type: "error", content: "Debes iniciar sesión"})
+      );
 
+      setTimeout(() => dispatch(clearNotification()), 5000);
+      return;
+    }
     try {
       const response = await blogService.addComment(
         blog.id,
@@ -50,6 +60,14 @@ const BlogDetailPage = () => {
   };
 
   const handleLike = async () => {
+    if (!user) {
+      dispatch(
+        setNotification({type: "error", content: "Debes iniciar sesión"})
+      );
+
+      setTimeout(() => dispatch(clearNotification()), 5000);
+      return;
+    }
     try {
       await blogService.like(blog.id, user.id);
     } catch (error) {
