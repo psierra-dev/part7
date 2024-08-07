@@ -1,7 +1,7 @@
-import {Box} from "@mui/material";
-import LoginForm from "../components/LoginForm";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
+import {Box} from "@mui/material";
+import LoginForm from "../components/LoginForm";
 
 const LoginPage = () => {
   const user = useSelector((state) => state.user);

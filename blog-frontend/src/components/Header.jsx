@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Link as MuiLink,
@@ -12,6 +11,8 @@ import {useSelector} from "react-redux";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
+import MenuAvatar from "./MenuAvatar";
+//import MenuAvatar from "./MenuAvatar";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
@@ -110,7 +111,7 @@ const Header = () => {
       {user.isLoading ? (
         <Skeleton variant="circular" width={35} height={35} />
       ) : user.user ? (
-        <Avatar sx={{width: 35, height: 35}}>H</Avatar>
+        <MenuAvatar />
       ) : (
         <Button variant="contained" onClick={() => navigate("/login")}>
           Login

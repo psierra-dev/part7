@@ -1,3 +1,5 @@
+import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {
   Box,
   Button,
@@ -5,32 +7,23 @@ import {
   Typography,
   Link as MuiLink,
 } from "@mui/material";
-import {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 
-import {setUser} from "../reducers/userReducer";
 import authService from "../services/auth";
-import blogService from "../services/blogs";
-import userService from "../services/user";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [data, setData] = useState({
     username: "",
     password: "",
+    name: "",
   });
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data: user} = await authService.login(data);
-      window.localStorage.setItem("token-blog", user.token);
-      blogService.setToken(user.token);
-      userService.setToken(user.token);
-      dispatch(setUser(user));
-      navigate("/");
+      await authService.register(data);
+
+      navigate("/login");
     } catch (error) {
       console.log(error, "error");
     }
@@ -45,7 +38,7 @@ const LoginForm = () => {
     <Box display="flex" flexDirection="column" gap="1.2rem">
       <Box>
         <Typography variant="h4" fontWeight="600">
-          Login
+          Register
         </Typography>
         <Typography
           variant="body1"
@@ -53,7 +46,7 @@ const LoginForm = () => {
             color: "grey",
           }}
         >
-          Log in to your account
+          Create an account
         </Typography>
       </Box>
       <Box
@@ -72,6 +65,15 @@ const LoginForm = () => {
           value={data.username}
           onChange={handleChangeInput}
         />
+        <TextField
+          id="outlined-basic"
+          label="Name"
+          variant="outlined"
+          data-testid="name"
+          name="name"
+          value={data.name}
+          onChange={handleChangeInput}
+        />
 
         <TextField
           id="outlined-basic"
@@ -87,15 +89,16 @@ const LoginForm = () => {
           login
         </Button>
       </Box>
-
       <Box sx={{display: "flex", alignItems: "center", gap: ".4rem"}}>
-        <Typography sx={{fontSize: 13}}>Do you not have an account?</Typography>
-        <MuiLink component={Link} to="/register">
-          create account
+        <Typography sx={{fontSize: 13}}>
+          Do you already have an account?
+        </Typography>
+        <MuiLink component={Link} to="/login">
+          log in
         </MuiLink>
       </Box>
     </Box>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

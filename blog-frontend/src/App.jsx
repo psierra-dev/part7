@@ -6,7 +6,7 @@ import blogService from "./services/blogs";
 import userService from "./services/user.js";
 
 import {addUser, isSuccess} from "./reducers/userReducer.js";
-import {initializeBlogs} from "./reducers/blogReducer.js";
+import {fetchAllBlogs, initializeBlogs} from "./reducers/blogReducer.js";
 import router from "./routes/index.jsx";
 
 const App = () => {
@@ -21,7 +21,7 @@ const App = () => {
     } else {
       dispatch(isSuccess());
     }
-    dispatch(initializeBlogs());
+    dispatch(fetchAllBlogs());
   }, [dispatch]);
 
   return <RouterProvider router={router} />;

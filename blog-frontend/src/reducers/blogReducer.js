@@ -1,9 +1,19 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import blogService from "../services/blogs";
+
+export const fetchAllBlogs = createAsyncThunk(
+  "blogs/fetchAllStatus",
+  async () => {
+    const blogs = await blogService.getAll();
+    console.log(blogs);
+
+    return blogs;
+  }
+);
 
 const blogSlice = createSlice({
   name: "blogs",
-  initialState: [],
+  initialState: {entities: [], loading: "idle"},
   reducers: {
     setBlogs(state, action) {
       return action.payload;
@@ -11,6 +21,15 @@ const blogSlice = createSlice({
     addBlog(state, action) {
       return state.concat(action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllBlogs.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.entities = action.payload;
+    }),
+      builder.addCase(fetchAllBlogs.pending, (state) => {
+        state.loading = "pending";
+      });
   },
 });
 
