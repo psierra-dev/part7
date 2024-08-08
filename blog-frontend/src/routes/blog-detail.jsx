@@ -39,6 +39,7 @@ const BlogDetailPage = () => {
 
   const addComment = async (event) => {
     event.preventDefault();
+    if (!event.target.comment.value) return;
     if (!user) {
       dispatch(
         setNotification({type: "error", content: "Debes iniciar sesión"})
@@ -61,9 +62,7 @@ const BlogDetailPage = () => {
 
   const handleLike = async () => {
     if (!user) {
-      dispatch(
-        setNotification({type: "error", content: "Debes iniciar sesión"})
-      );
+      dispatch(setNotification({type: "error", content: "You must log in"}));
 
       setTimeout(() => dispatch(clearNotification()), 5000);
       return;
@@ -87,7 +86,9 @@ const BlogDetailPage = () => {
         <Typography sx={{fontSize: 30, fontWeight: 600}}>
           {blog.title}
         </Typography>
-        <Link to={blog.url}>{blog.url}</Link>
+        <Link to={blog.url} target="_blank">
+          {blog.url}
+        </Link>
         <Box display="flex" gap=".5rem" paddingBlock="1.5rem">
           <Avatar>bl</Avatar>
           <Box>

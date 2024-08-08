@@ -90,7 +90,7 @@ const BlogForm = () => {
 
       {!user && (
         <Typography sx={{textAlign: "center", color: "red"}}>
-          Inicie sesión para crear un blog
+          Please log in to create a blog
         </Typography>
       )}
     </Box>

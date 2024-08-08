@@ -8,7 +8,7 @@ const Home = () => {
 
   const blogs =
     blogsState.entities.length > 1
-      ? blogsState.entities.slice((a, b) => b.likes.length + a.likes.length)
+      ? [...blogsState.entities].sort((a, b) => b.likes.length - a.likes.length)
       : blogsState.entities;
 
   if (blogsState.loading === "pending") {

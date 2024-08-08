@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import {Outlet} from "react-router-dom";
-import {Alert, Box, Container} from "@mui/material";
+import {Alert, Box, Container, Toolbar} from "@mui/material";
 import HeaderPhone from "../components/AppBar";
 import {useSelector} from "react-redux";
 
@@ -11,11 +11,13 @@ const Root = () => {
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
       <HeaderPhone />
+
       <Container
         component="main"
         maxWidth="sm"
-        sx={{flex: 1, display: "flex", flexDirection: "column"}}
+        sx={{flex: 1, display: "flex", flexDirection: "column", my: {sm: 3}}}
       >
+        <Toolbar sx={{display: {xs: "none", sm: "block"}}} />
         <Outlet />
       </Container>
       {notification.content && (

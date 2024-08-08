@@ -19,6 +19,7 @@ export async function loader() {
 }
 const UsersPage = () => {
   const {users} = useLoaderData();
+
   return (
     <Box>
       <Typography variant="h6">All Users</Typography>

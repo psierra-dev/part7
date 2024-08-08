@@ -86,7 +86,7 @@ const RegisterForm = () => {
           onChange={handleChangeInput}
         />
         <Button type="submit" variant="contained">
-          login
+          register
         </Button>
       </Box>
       <Box sx={{display: "flex", alignItems: "center", gap: ".4rem"}}>

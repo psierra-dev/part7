@@ -5,7 +5,6 @@ export const fetchAllBlogs = createAsyncThunk(
   "blogs/fetchAllStatus",
   async () => {
     const blogs = await blogService.getAll();
-    console.log(blogs);
 
     return blogs;
   }
@@ -19,7 +18,8 @@ const blogSlice = createSlice({
       return action.payload;
     },
     addBlog(state, action) {
-      return state.concat(action.payload);
+      state.entities.push(action.payload);
+      return state;
     },
   },
   extraReducers: (builder) => {
@@ -35,14 +35,4 @@ const blogSlice = createSlice({
 
 export const {setBlogs, addBlog} = blogSlice.actions;
 
-export const initializeBlogs = () => {
-  return async (dispatch) => {
-    try {
-      const blogs = await blogService.getAll();
-      dispatch(setBlogs(blogs));
-    } catch (error) {
-      console.log(error, "error");
-    }
-  };
-};
 export default blogSlice.reducer;

@@ -1,3 +1,5 @@
+import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {useState} from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -5,20 +7,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  useMediaQuery,
-  Link as MuiLink,
-  Button,
-} from "@mui/material";
-import {NavLink, useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+
+import {Drawer, useMediaQuery, Button} from "@mui/material";
+import Nav from "./Nav";
 
 const HeaderPhone = () => {
   const matches = useMediaQuery("(min-width:600px)");
@@ -30,7 +21,7 @@ const HeaderPhone = () => {
     setOpen(state);
   };
 
-  const logout = () => {
+  const handleLogout = () => {
     window.localStorage.clear("token-blog");
     window.location.reload();
   };
@@ -57,120 +48,28 @@ const HeaderPhone = () => {
         sx={{minWidth: "300px"}}
         onClose={() => toggleDrawer(false)}
       >
-        <List sx={{minWidth: "230px"}}>
-          <ListItem>
-            <ListItemText
-              primary={
-                <MuiLink
-                  component={NavLink}
-                  to="/"
-                  underline="none"
-                  fontSize="1rem"
-                  fontWeight="500"
-                  display="flex"
-                  alignItems="center"
-                  className={({isActive, isPending}) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  sx={{
-                    color: "grey",
-                    "&:hover": {
-                      color: "black",
-                    },
-                    "&.active": {
-                      color: "black",
-                    },
-                  }}
-                >
-                  <HomeOutlinedIcon />
-                  Blogs
-                </MuiLink>
-              }
-              secondary={null}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary={
-                <MuiLink
-                  component={NavLink}
-                  to="/users"
-                  underline="none"
-                  fontSize="1rem"
-                  fontWeight="500"
-                  display="flex"
-                  alignItems="center"
-                  className={({isActive, isPending}) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  sx={{
-                    color: "grey",
-                    "&:hover": {
-                      color: "black",
-                    },
-                    "&.active": {
-                      color: "black",
-                    },
-                  }}
-                >
-                  <PeopleOutlineOutlinedIcon />
-                  Users
-                </MuiLink>
-              }
-              secondary={null}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary={
-                <MuiLink
-                  component={NavLink}
-                  to="/create"
-                  underline="none"
-                  fontSize="1rem"
-                  fontWeight="500"
-                  display="flex"
-                  alignItems="center"
-                  className={({isActive, isPending}) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  sx={{
-                    color: "grey",
-                    "&:hover": {
-                      color: "black",
-                    },
-                    "&.active": {
-                      color: "black",
-                    },
-                  }}
-                >
-                  <CreateOutlinedIcon />
-                  Create
-                </MuiLink>
-              }
-              secondary={null}
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary={
-                user ? (
-                  <Button sx={{color: "red"}} onClick={logout}>
-                    Cerrar sesion
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    onClick={() => navigate("/login")}
-                  >
-                    Login
-                  </Button>
-                )
-              }
-              secondary={null}
-            />
-          </ListItem>
-        </List>
+        <Box
+          minWidth={250}
+          sx={{
+            display: {xs: "flex", sm: "none"},
+            flexDirection: "column",
+            alignItems: "start",
+            gap: "1rem",
+            padding: "0.6rem",
+          }}
+        >
+          <Nav />
+
+          {user ? (
+            <Button onClick={handleLogout} sx={{color: "red"}}>
+              Logout
+            </Button>
+          ) : (
+            <Button variant="contained" onClick={() => navigate("/login")}>
+              Login
+            </Button>
+          )}
+        </Box>
       </Drawer>
     </Box>
   );

@@ -6,7 +6,7 @@ import blogService from "./services/blogs";
 import userService from "./services/user.js";
 
 import {addUser, isSuccess} from "./reducers/userReducer.js";
-import {fetchAllBlogs, initializeBlogs} from "./reducers/blogReducer.js";
+import {fetchAllBlogs} from "./reducers/blogReducer.js";
 import router from "./routes/index.jsx";
 
 const App = () => {
